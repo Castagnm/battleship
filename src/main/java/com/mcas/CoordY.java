@@ -1,6 +1,6 @@
 package com.mcas;
 
-public enum CoordY {
+public enum CoordY implements Coord {
 
     ONE("1"),
     TWO("2"),
@@ -23,4 +23,12 @@ public enum CoordY {
         return this.coordStr;
     }
     
+    public CoordY getNext() throws CoordOutOfBoundException {
+        int nextIndex = this.ordinal()+1;
+        CoordY[] ref = CoordY.values();
+
+        if(nextIndex >= ref.length ) throw new CoordOutOfBoundException();
+
+        return ref[nextIndex];
+    }
 }
