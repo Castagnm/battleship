@@ -13,15 +13,15 @@ public class ShipTest {
         // Given
         CoordX coordX = CoordX.A;
         CoordY coordY = CoordY.ONE;
-        Size size = Size.THREE;
+        ShipSize size = ShipSize.THREE;
 
         // When
         Ship ship = ShipBuilder
             .create()
             .setCoordX(coordX)
             .setCoordY(coordY)
-            .setDirectionRight()
-            .setSize(size)
+            .setDirection(Direction.RIGHT)
+            .setShipSize(size)
             .createShip();
 
         // Then
@@ -32,5 +32,25 @@ public class ShipTest {
         assertEquals(coordY, ship.getTargets()[0].getCoordY());
         assertEquals(CoordX.C, ship.getTargets()[shipSize-1].getCoordX());
         assertEquals(CoordY.ONE, ship.getTargets()[shipSize-1].getCoordY());
+    }
+
+    @Test
+    public void shouldSuccessfullyCreateSerieOfShips() throws ShipNotCreatedException {
+
+        // Given
+        int fleetSize = 5;
+
+        // When
+        Ship[] fleet = ShipBuilder
+            .create()
+            .setFleetSize(fleetSize)
+            .createFleet();
+
+        // Then
+        assertEquals(fleetSize, fleet.length);
+
+        for(Ship ship : fleet) {
+            assertNotNull(ship);
+        }
     }
 }

@@ -21,8 +21,8 @@ public class App
             .create()
             .setCoordX(CoordX.A)
             .setCoordY(CoordY.THREE)
-            .setDirectionRight()
-            .setSize(Size.TWO)
+            .setDirection(Direction.RIGHT)
+            .setShipSize(ShipSize.TWO)
             .createShip();
         }
         catch(ShipNotCreatedException e) {
@@ -36,8 +36,8 @@ public class App
             .create()
             .setCoordX(CoordX.I)
             .setCoordY(CoordY.THREE)
-            .setDirectionRight()
-            .setSize(Size.FIVE)
+            .setDirection(Direction.RIGHT)
+            .setShipSize(ShipSize.FIVE)
             .createShip();
         }
         catch(ShipNotCreatedException e) {

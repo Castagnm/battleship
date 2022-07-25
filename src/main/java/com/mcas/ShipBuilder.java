@@ -8,7 +8,9 @@ public class ShipBuilder {
 
     private Direction direction;
     
-    private Size size;
+    private ShipSize shipSize;
+
+    private int fleetSize;
 
     private ShipBuilder() {
         
@@ -18,8 +20,9 @@ public class ShipBuilder {
         return new ShipBuilder()
             .setCoordX(CoordX.A)
             .setCoordY(CoordY.ONE)
-            .setDirectionRight()
-            .setSize(Size.ONE);
+            .setDirection(Direction.RIGHT)
+            .setShipSize(ShipSize.ONE)
+            .setFleetSize(1);
     }
 
     public ShipBuilder setCoordX(CoordX coordX) {
@@ -32,24 +35,24 @@ public class ShipBuilder {
         return this;
     }
     
-    public ShipBuilder setDirectionDown() {
-        this.direction = Direction.DOWN;
+    public ShipBuilder setDirection(Direction direction) {
+        this.direction = direction;
         return this;
     }
     
-    public ShipBuilder setDirectionRight() {
-        this.direction = Direction.RIGHT;
+    public ShipBuilder setShipSize(ShipSize size) {
+        this.shipSize = size;
         return this;
     }
-    
-    public ShipBuilder setSize(Size size) {
-        this.size = size;
+
+    public ShipBuilder setFleetSize(int fleetSize) {
+        this.fleetSize = fleetSize;
         return this;
     }
 
     public Ship createShip() throws ShipNotCreatedException {
 
-        Target[] shipTargets = new Target[size.getValue()];
+        Target[] shipTargets = new Target[shipSize.getValue()];
 
         shipTargets[0] = Target.create(coordX, coordY);
 
@@ -58,8 +61,8 @@ public class ShipBuilder {
                 Target refTarget = shipTargets[i-1];
                 CoordX refCoordX = refTarget.getCoordX();
                 CoordY refCoordY = refTarget.getCoordY();
-                CoordX nextCoordX = this.direction.equals(Direction.RIGHT) ? refCoordX.getNext() : refCoordX;
-                CoordY nextCoordY = this.direction.equals(Direction.DOWN) ? refCoordY.getNext() : refCoordY;
+                CoordX nextCoordX = direction.equals(Direction.RIGHT) ? refCoordX.getNext() : refCoordX;
+                CoordY nextCoordY = direction.equals(Direction.DOWN) ? refCoordY.getNext() : refCoordY;
                 Target nextTarget = Target.create(nextCoordX, nextCoordY);
                 shipTargets[i] = nextTarget;
             }
@@ -72,5 +75,23 @@ public class ShipBuilder {
             System.out.println("Coordinate not valid, the ship cannot be created");
             throw new ShipNotCreatedException();
         }
+    }
+
+    public Ship[] createFleet() throws ShipNotCreatedException {
+        Ship[] fleet = new Ship[fleetSize];
+
+        for(int i = 0; i< fleetSize; i++) {
+            fleet[i] = createRandomShip();
+        }
+
+        return fleet;
+    }
+
+    private Ship createRandomShip() throws ShipNotCreatedException {
+        setShipSize(ShipSize.getRandom());
+        setDirection(Direction.getRandom());
+        setCoordX(CoordX.A);
+        setCoordY(CoordY.ONE);
+        return createShip();
     }
 }
