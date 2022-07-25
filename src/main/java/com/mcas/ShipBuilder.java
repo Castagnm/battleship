@@ -10,7 +10,7 @@ public class ShipBuilder {
     
     private ShipSize shipSize;
 
-    private int fleetSize;
+    private static final int FLEET_SIZE = 5;
 
     private ShipBuilder() {
         
@@ -21,8 +21,7 @@ public class ShipBuilder {
             .setCoordX(CoordX.A)
             .setCoordY(CoordY.ONE)
             .setDirection(Direction.RIGHT)
-            .setShipSize(ShipSize.ONE)
-            .setFleetSize(1);
+            .setShipSize(ShipSize.ONE);
     }
 
     public ShipBuilder setCoordX(CoordX coordX) {
@@ -42,11 +41,6 @@ public class ShipBuilder {
     
     public ShipBuilder setShipSize(ShipSize size) {
         this.shipSize = size;
-        return this;
-    }
-
-    public ShipBuilder setFleetSize(int fleetSize) {
-        this.fleetSize = fleetSize;
         return this;
     }
 
@@ -78,9 +72,12 @@ public class ShipBuilder {
     }
 
     public Ship[] createFleet() throws ShipNotCreatedException {
-        Ship[] fleet = new Ship[fleetSize];
+        Ship[] fleet = new Ship[FLEET_SIZE];
 
-        for(int i = 0; i< fleetSize; i++) {
+        ShipSize[] fleetModel = ShipSize.values();
+
+        for(int i = 0; i< FLEET_SIZE; i++) {
+            setShipSize(fleetModel[i]);
             fleet[i] = createRandomShip();
         }
 
@@ -88,7 +85,6 @@ public class ShipBuilder {
     }
 
     private Ship createRandomShip() throws ShipNotCreatedException {
-        setShipSize(ShipSize.getRandom());
         setDirection(Direction.getRandom());
         setCoordX(CoordX.A);
         setCoordY(CoordY.ONE);

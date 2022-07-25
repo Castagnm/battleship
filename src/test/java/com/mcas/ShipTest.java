@@ -38,17 +38,13 @@ public class ShipTest {
     public void shouldSuccessfullyCreateSerieOfShips() throws ShipNotCreatedException {
 
         // Given
-        int fleetSize = 5;
 
         // When
         Ship[] fleet = ShipBuilder
             .create()
-            .setFleetSize(fleetSize)
             .createFleet();
 
         // Then
-        assertEquals(fleetSize, fleet.length);
-
         for(Ship ship : fleet) {
             assertNotNull(ship);
         }
