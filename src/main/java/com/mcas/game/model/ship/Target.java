@@ -32,6 +32,6 @@ public class Target {
     
     @Override
     public String toString() {
-        return "Target " + coordX.toString() + coordY.toString();
+        return coordX.toString() + coordY.toString();
     }
 }
