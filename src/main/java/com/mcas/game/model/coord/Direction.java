@@ -1,4 +1,4 @@
-package com.mcas;
+package com.mcas.game.model.coord;
 
 import java.util.Arrays;
 import java.util.Collections;

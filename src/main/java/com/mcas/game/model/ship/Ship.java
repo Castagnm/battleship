@@ -1,17 +1,14 @@
-package com.mcas;
+package com.mcas.game.model.ship;
+
 public class Ship {
 
     private final Target[] targets;
 
     private final String name;
 
-    private Ship(String name, Target[] targets) {
+    public Ship(String name, Target[] targets) {
         this.name = name;
         this.targets = targets;
-    }
-
-    public static Ship getInstanceOf(String name, Target[] targets) {
-        return new Ship(name, targets);
     }
 
     public Target[] getTargets() {

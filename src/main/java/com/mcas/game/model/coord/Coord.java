@@ -1,4 +1,6 @@
-package com.mcas;
+package com.mcas.game.model.coord;
+
+import com.mcas.game.exception.CoordOutOfBoundException;
 
 public interface Coord {
 

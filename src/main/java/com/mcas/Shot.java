@@ -1,5 +1,8 @@
 package com.mcas;
 
+import com.mcas.game.model.coord.CoordX;
+import com.mcas.game.model.coord.CoordY;
+
 public class Shot {
     
     private final CoordX coordX;

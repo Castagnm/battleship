@@ -1,4 +1,7 @@
-package com.mcas;
+package com.mcas.game.model.ship;
+
+import com.mcas.game.model.coord.CoordX;
+import com.mcas.game.model.coord.CoordY;
 
 public class Target {
 

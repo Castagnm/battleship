@@ -1,9 +1,6 @@
-package com.mcas;
+package com.mcas.game.model.coord;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import com.mcas.game.exception.CoordOutOfBoundException;
 
 public enum CoordY implements Coord {
 
@@ -16,13 +13,7 @@ public enum CoordY implements Coord {
     SEVEN("7"),
     EIGHT("8"),
     NINE("9"),
-    TEN("10");
-
-    private static final Random RANDOM = new Random();
-
-    private static final List<CoordY> VALUES = Collections.unmodifiableList(Arrays.asList(values()));
-    
-    private static final int SIZE = VALUES.size();
+    TEN("10");    
 
     private String coordStr;
 
@@ -42,9 +33,5 @@ public enum CoordY implements Coord {
         if(nextIndex >= ref.length ) throw new CoordOutOfBoundException();
 
         return ref[nextIndex];
-    }
-    
-    public static CoordY getRandom() {
-        return VALUES.get(RANDOM.nextInt(SIZE));
     }
 }
