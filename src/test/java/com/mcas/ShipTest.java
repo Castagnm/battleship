@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;
 
+
 public class ShipTest {
 
     @Test
@@ -25,7 +26,7 @@ public class ShipTest {
         assertNotNull(submarine);
         assertNotNull(battleship);
         assertNotNull(carrier);
-        
+
         checkShipTargets(patrolBoat.getTargets());
         checkShipTargets(cruiser.getTargets());
         checkShipTargets(submarine.getTargets());

@@ -1,5 +1,10 @@
 package com.mcas;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+
 public enum CoordX implements Coord {
 
     A,
@@ -10,7 +15,14 @@ public enum CoordX implements Coord {
     F,
     G,
     H,
-    I;
+    I,
+    J;
+            
+    private static final Random RANDOM = new Random();
+
+    private static final List<CoordX> VALUES = Collections.unmodifiableList(Arrays.asList(values()));
+    
+    private static final int SIZE = VALUES.size();
 
     public CoordX getNext() throws CoordOutOfBoundException {
         int nextIndex = this.ordinal()+1;
@@ -19,5 +31,9 @@ public enum CoordX implements Coord {
         if(nextIndex >= ref.length ) throw new CoordOutOfBoundException();
 
         return ref[nextIndex];
+    }
+    
+    public static CoordX getRandom() {
+        return VALUES.get(RANDOM.nextInt(SIZE));
     }
 }

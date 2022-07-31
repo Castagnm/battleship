@@ -22,6 +22,10 @@ public class Target {
     public CoordY getCoordY() {
         return this.coordY;
     }
+
+    public boolean equals(Target target) {
+        return coordX.equals(target.getCoordX()) && coordY.equals(target.getCoordY());
+    }
     
     @Override
     public String toString() {
