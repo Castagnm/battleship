@@ -8,45 +8,51 @@ public class ShipBuilder {
 
     private Direction direction;
     
-    private ShipSize shipSize;
+    private int shipSize;
 
-    private static final int FLEET_SIZE = 5;
+    private String shipName;
 
     private ShipBuilder() {
         
     }
 
-    public static ShipBuilder create() {
-        return new ShipBuilder()
-            .setCoordX(CoordX.A)
-            .setCoordY(CoordY.ONE)
-            .setDirection(Direction.RIGHT)
-            .setShipSize(ShipSize.ONE);
+    public static ShipBuilder getInstanceOf() {
+        return new ShipBuilder();
     }
 
-    public ShipBuilder setCoordX(CoordX coordX) {
-        this.coordX = coordX;
-        return this;
+    public Ship createPatrolBoat() throws ShipNotCreatedException {
+        shipName = "Patrol boat";
+        shipSize = 2;
+        return createRandomShip();
     }
 
-    public ShipBuilder setCoordY(CoordY coordY) {
-        this.coordY = coordY;
-        return this;
+    public Ship createCruiser() throws ShipNotCreatedException {
+        shipName = "Cruiser";
+        shipSize = 3;
+        return createRandomShip();
     }
     
-    public ShipBuilder setDirection(Direction direction) {
-        this.direction = direction;
-        return this;
+    public Ship createSubmarine() throws ShipNotCreatedException {
+        shipName = "Submarine";
+        shipSize = 3;
+        return createRandomShip();
     }
     
-    public ShipBuilder setShipSize(ShipSize size) {
-        this.shipSize = size;
-        return this;
+    public Ship createBattleShip() throws ShipNotCreatedException {
+        shipName = "Battleship";
+        shipSize = 4;
+        return createRandomShip();
+    }
+    
+    public Ship createCarrier() throws ShipNotCreatedException {
+        shipName = "Patrol boat";
+        shipSize = 5;
+        return createRandomShip();
     }
 
     public Ship createShip() throws ShipNotCreatedException {
 
-        Target[] shipTargets = new Target[shipSize.getValue()];
+        Target[] shipTargets = new Target[shipSize];
 
         shipTargets[0] = Target.create(coordX, coordY);
 
@@ -61,7 +67,7 @@ public class ShipBuilder {
                 shipTargets[i] = nextTarget;
             }
 
-            Ship ship = Ship.create(shipTargets);
+            Ship ship = Ship.getInstanceOf(shipName, shipTargets);
             System.out.println("ship created : " + ship.toString());
             return ship;
         }
@@ -71,23 +77,10 @@ public class ShipBuilder {
         }
     }
 
-    public Ship[] createFleet() throws ShipNotCreatedException {
-        Ship[] fleet = new Ship[FLEET_SIZE];
-
-        ShipSize[] fleetModel = ShipSize.values();
-
-        for(int i = 0; i< FLEET_SIZE; i++) {
-            setShipSize(fleetModel[i]);
-            fleet[i] = createRandomShip();
-        }
-
-        return fleet;
-    }
-
     private Ship createRandomShip() throws ShipNotCreatedException {
-        setDirection(Direction.getRandom());
-        setCoordX(CoordX.A);
-        setCoordY(CoordY.ONE);
+        direction = Direction.getRandom();
+        coordX = CoordX.A;
+        coordY = CoordY.ONE;
         return createShip();
     }
 }

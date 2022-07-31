@@ -3,50 +3,41 @@ package com.mcas;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertEquals;
 
 public class ShipTest {
-    
+
     @Test
-    public void shouldSuccessfullyCreateShip() throws ShipNotCreatedException {
+    public void shouldBuildShipsSuccessfully() throws ShipNotCreatedException {
 
         // Given
-        CoordX coordX = CoordX.A;
-        CoordY coordY = CoordY.ONE;
-        ShipSize size = ShipSize.THREE;
+        ShipBuilder shipBuilder = ShipBuilder.getInstanceOf();
 
         // When
-        Ship ship = ShipBuilder
-            .create()
-            .setCoordX(coordX)
-            .setCoordY(coordY)
-            .setDirection(Direction.RIGHT)
-            .setShipSize(size)
-            .createShip();
+        Ship patrolBoat = shipBuilder.createPatrolBoat();
+        Ship cruiser = shipBuilder.createCruiser();
+        Ship submarine = shipBuilder.createSubmarine();
+        Ship battleship = shipBuilder.createBattleShip();
+        Ship carrier = shipBuilder.createCarrier();
 
         // Then
-        int shipSize = ship.getTargets().length;
-        assertNotNull(ship);
-        assertEquals(size.getValue(), shipSize);
-        assertEquals(coordX, ship.getTargets()[0].getCoordX());
-        assertEquals(coordY, ship.getTargets()[0].getCoordY());
-        assertEquals(CoordX.C, ship.getTargets()[shipSize-1].getCoordX());
-        assertEquals(CoordY.ONE, ship.getTargets()[shipSize-1].getCoordY());
+        assertNotNull(patrolBoat);
+        assertNotNull(cruiser);
+        assertNotNull(submarine);
+        assertNotNull(battleship);
+        assertNotNull(carrier);
+        
+        checkShipTargets(patrolBoat.getTargets());
+        checkShipTargets(cruiser.getTargets());
+        checkShipTargets(submarine.getTargets());
+        checkShipTargets(battleship.getTargets());
+        checkShipTargets(carrier.getTargets());
     }
 
-    @Test
-    public void shouldSuccessfullyCreateSerieOfShips() throws ShipNotCreatedException {
+    private void checkShipTargets(Target[] shipTargets) {
 
-        // Given
-
-        // When
-        Ship[] fleet = ShipBuilder
-            .create()
-            .createFleet();
-
-        // Then
-        for(Ship ship : fleet) {
-            assertNotNull(ship);
+        for(Target next : shipTargets) {
+            assertNotNull(next.getCoordX());
+            assertNotNull(next.getCoordY());
         }
     }
 }

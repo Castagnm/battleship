@@ -1,14 +1,17 @@
 package com.mcas;
 public class Ship {
 
-    private Target[] targets;
+    private final Target[] targets;
 
-    private Ship(Target[] targets) {
+    private final String name;
+
+    private Ship(String name, Target[] targets) {
+        this.name = name;
         this.targets = targets;
     }
 
-    public static Ship create(Target[] targets) {
-        return new Ship(targets);
+    public static Ship getInstanceOf(String name, Target[] targets) {
+        return new Ship(name, targets);
     }
 
     public Target[] getTargets() {
@@ -18,7 +21,7 @@ public class Ship {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        String prefix = "ship has " + targets.length + "targets, they are : ";
+        String prefix = name + " has " + targets.length + " targets, they are : ";
         builder.append(prefix);
 
         for(Target next : targets) {
